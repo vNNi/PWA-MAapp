@@ -23,6 +23,9 @@ export default class Login extends Component {
                                 <Button text="Login" />
                             </div>
                         </div>
+                        <div style={st.registerLink}>
+                            <p>{cp.dontHasAccount}</p>
+                        </div>
                     </div>
                 </div>
             </div>

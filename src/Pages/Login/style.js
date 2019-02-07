@@ -11,6 +11,7 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
+        flexDirection: 'column',
     },
     loginContent: {
         width: '70%',
@@ -41,5 +42,13 @@ export default {
     buttonWrapper: {
         position: 'absolute',
         top: '95%',
+    },
+    registerLink: {
+        textAlign: 'center',
+        color: 'white',
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginTop: '2em',
     }
 }
