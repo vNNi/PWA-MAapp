@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Login from './Pages/Login/index';
+import Register from './Pages/Register/index';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Login />, document.getElementById('root'));
