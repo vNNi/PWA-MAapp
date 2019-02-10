@@ -6,7 +6,7 @@ export default class index extends Component {
         return (
             <div>
                 <label style={st.label}>{this.props.placeholder}</label>
-                <input type={this.props.type} style={st.input}></input>
+                <input type={this.props.type} style={st.input} onChange={this.props.onChange}></input>
             </div>
         )
     }
