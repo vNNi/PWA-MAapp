@@ -6,9 +6,11 @@ import Register from './Pages/Register/index';
 import NewLocation from './Pages/Location/index';
 import List from './Pages/List/index';
 import * as serviceWorker from './serviceWorker';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import { Switch, Route, Router } from 'react-router-dom';
+import history from './history.js';
 ReactDOM.render(
-    <Router>
+    <Router history={history}>
         <Switch>
             <Route exact={true} path="/" component={Login} />
             <Route path="/register" component={Register} />
