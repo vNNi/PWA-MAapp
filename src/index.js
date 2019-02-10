@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Login from './Pages/Login/index';
 import Register from './Pages/Register/index';
-import BottomNav from './Components/BottomBar/index';
+import NewLocation from './Pages/Location/index';
+import List from './Pages/List/index';
 import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<BottomNav />, document.getElementById('root'));
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+ReactDOM.render(
+    <Router>
+        <Switch>
+            <Route exact={true} path="/" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/location" component={NewLocation} />
+            <Route path="/list" component={List} />
+        </Switch>
+    </Router>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
