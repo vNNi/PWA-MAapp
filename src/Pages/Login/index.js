@@ -13,7 +13,7 @@ export default class Login extends Component {
         email: '',
         password: '',
     }
-    login = (e) => {
+    login = () => {
         this.apiservice.login(this.state.email, this.state.password);
     }
     handleEmail = (e) => {

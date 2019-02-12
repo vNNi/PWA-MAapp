@@ -34,12 +34,44 @@ export default class APIService {
                     throw Error('Infelizmente nossos serviços estão offline');
                 }
             }).then((result) => {
-                console.log(result);
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('userData', { id: result.user._id, name: result.user.alias, email: result.user.email });
                 history.push('/list');
             }).catch((err) => {
                 history.push('/ServerError');
             });
+    }
+    register(userEmail = "", userAlias = "", userPassword = "") {
+        const request = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Basic ${this.apiLogin}:${this.apiPass}`,
+            },
+            body: JSON.stringify({
+                email: userEmail,
+                alias: userAlias,
+                password: userPassword,
+            }),
+        }
+        fetch(`${this.url}/user/register`, request).then((response) => {
+            if (response.ok) {
+                if (response.status === 200 | 201) {
+                    return response.json();
+                }
+                else if (response.status === 401) {
+                    return history.push('/login');
+                }
+
+            } else {
+                throw Error('Infelizmente nossos serviços estão offline');
+            }
+        }).then((result) => {
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('userData', { id: result.user._id, name: result.user.alias, email: result.user.email });
+            history.push('/list');
+        }).catch((err) => {
+            history.push('/ServerError');
+        })
     }
 };
