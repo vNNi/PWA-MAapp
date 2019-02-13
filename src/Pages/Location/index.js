@@ -11,8 +11,8 @@ export default function index() {
                 <span>{cp.doCheckinOrCheckout}</span>
             </div>
             <div style={st.buttonWrapper}>
-                <Button text="Check-in" />
-                <Button text="Check-out" />
+                <Button text="Check-in" backgroundColor="black" color="" onClick={checkIn} />
+                <Button text="Check-out" backgroundColor="white" color="black" />
             </div>
         </div>
     )

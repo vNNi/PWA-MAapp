@@ -4,7 +4,7 @@ export default class index extends Component {
     render() {
         return (
             <div>
-                <button style={st.button}>{this.props.text}</button>
+                <button style={st.button(this.props)} onClick={this.props.onClick}>{this.props.text}</button>
             </div>
         )
     }
