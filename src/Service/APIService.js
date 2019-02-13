@@ -8,7 +8,7 @@ export default class APIService {
         this.apiLogin = data[0];
         this.apiPass = data[1];
         this.GApi = 'https://maps.googleapis.com/maps/api/geocode/';
-        this.GApiKey = '';
+        this.GApiKey = 'AIzaSyD35EvA-8rFF2mb5S-RO7B-HXmK9_Pe9MQ';
     }
     login(userEmail, userPassword) {
         const request = {
@@ -37,10 +37,11 @@ export default class APIService {
                 }
             }).then((result) => {
                 localStorage.setItem('token', result.token);
-                localStorage.setItem('userData', { id: result.user._id, name: result.user.alias, email: result.user.email });
+                localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
                 history.push('/list');
             }).catch((err) => {
                 history.push('/ServerError');
+                console.log(err);
             });
     }
     register(userEmail = "", userAlias = "", userPassword = "") {
@@ -70,9 +71,10 @@ export default class APIService {
             }
         }).then((result) => {
             localStorage.setItem('token', result.token);
-            localStorage.setItem('userData', { id: result.user._id, name: result.user.alias, email: result.user.email });
+            localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
             history.push('/list');
         }).catch((err) => {
+            console.log(err);
             history.push('/ServerError');
         })
     }
@@ -82,11 +84,12 @@ export default class APIService {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 console.log(lat + " " + lng);
+                console.log(JSON.parse(localStorage.getItem("userData")).name);
                 fetch(`${this.GApi}json?latlng=${lat},${lng}&key=${this.GApiKey}`).then((response) => {
                     return response.json();
                 }).then((result) => {
-                    const address = result.results[0].address_components[1].short_name;
-                    const number = result.results[0].address_components[0].short_name;
+                    const address = result.results[0].address_components[1].short_name || "Rua Dr. Pereira Luiz";
+                    const number = result.results[0].address_components[0].short_name || "45";
                     console.log(address + " " + number);
                     const request = {
                         method: 'POST',
@@ -95,7 +98,7 @@ export default class APIService {
                             'Authorization': `Bearer ${localStorage.getItem("token")}`,
                         },
                         body: JSON.stringify({
-                            alias: localStorage.getItem('userData').name,
+                            alias: JSON.parse(localStorage.getItem('userData')).name,
                             date: new Date(),
                             status: {
                                 code: code,
@@ -107,9 +110,16 @@ export default class APIService {
                     fetch(`${this.url}/user/location/register`, request).then((response) => {
                         if (response.ok) {
                             if (response.status === 201) {
-                                history.push('/list', { newLocation: true });
+                                return response.json();
+                            } else if (response.status === 401) {
+                                return history.push('/login', { Unauthorized: true });
+                            }
+                            else {
+                                throw Error('server error');
                             }
                         }
+                    }).then((result) => {
+                        history.push('/list', { newLocation: true });
                     });
                 });
             }, () => {
