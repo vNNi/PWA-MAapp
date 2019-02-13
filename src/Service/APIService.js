@@ -8,7 +8,7 @@ export default class APIService {
         this.apiLogin = data[0];
         this.apiPass = data[1];
         this.GApi = 'https://maps.googleapis.com/maps/api/geocode/';
-        this.GApiKey = 'AIzaSyD35EvA-8rFF2mb5S-RO7B-HXmK9_Pe9MQ';
+        this.GApiKey = '';
     }
     login(userEmail, userPassword) {
         const request = {
