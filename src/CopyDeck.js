@@ -4,4 +4,6 @@ export default {
     doCheckinOrCheckout: "Diga onde você está!",
     checkList: "Últimas localizações",
     listSubtitle: "Second text to explain something",
+    defaultErrorServer: "Estamos com problemas de conexão, tente novamente mais tarde 😓",
+    notFoundPage: "Página não encontrada 🙁"
 }
