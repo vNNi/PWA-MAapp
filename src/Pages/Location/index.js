@@ -5,9 +5,13 @@ import Button from '../../Components/Button/index';
 import cp from '../../CopyDeck';
 import APIService from '../../Service/APIService';
 export default function index() {
+    function checkOut() {
+        const apiservice = new APIService();
+        return apiservice.newLocation(2, "checkOut");
+    }
     function checkIn() {
         const apiservice = new APIService();
-        return apiservice.newLocation(1, "check-in");
+        return apiservice.newLocation(1, "checkIn");
     }
     return (
         <div style={st.imgBd}>
@@ -17,7 +21,7 @@ export default function index() {
             </div>
             <div style={st.buttonWrapper}>
                 <Button text="Check-in" backgroundColor="black" color="" onClick={checkIn} />
-                <Button text="Check-out" backgroundColor="white" color="black" />
+                <Button text="Check-out" backgroundColor="white" color="black" onClick={checkOut} />
             </div>
         </div>
     )

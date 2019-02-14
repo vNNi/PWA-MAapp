@@ -79,6 +79,44 @@ export default class APIService {
         })
     }
     newLocation(code = 0, text = "") {
+        if (code === 2) {
+            const request = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                    alias: JSON.parse(localStorage.getItem('userData')).name,
+                    date: new Date(),
+                    status: {
+                        code: code,
+                        text: text,
+                    },
+                    address: `Arena Corinthians - Avenida Miguel Ignácio Curi - Artur Alvim`,
+                }),
+            }
+            fetch(`${this.url}/user/location/register`, request).then((result) => {
+                if (result.ok) {
+                    if (result.status === 201) {
+                        return result.json();
+                    } else if (result.status === 401) {
+                        return history.push('/', { unauthorized: true, message: "Faça login para continuar!" })
+                    } else {
+                        throw new Error('Server error:');
+                    }
+                }
+            }).then((data) => {
+                history.push('/list');
+            }).catch((error) => {
+                console.log(error)
+                return JSON.parse(JSON.stringify(error));
+            }).then((error) => {
+                console.log(error)
+                history.push('/ServerError', { error: error })
+            });
+            return;
+        }
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
