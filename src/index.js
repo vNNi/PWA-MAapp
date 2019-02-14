@@ -5,6 +5,8 @@ import Login from './Pages/Login/index';
 import Register from './Pages/Register/index';
 import NewLocation from './Pages/Location/index';
 import List from './Pages/List/index';
+import ServerError from './Pages/ServerError/index';
+import NotFound from './Pages/404/index';
 import * as serviceWorker from './serviceWorker';
 
 import { Switch, Route, Router } from 'react-router-dom';
@@ -13,9 +15,11 @@ ReactDOM.render(
     <Router history={history}>
         <Switch>
             <Route exact={true} path="/" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/location" component={NewLocation} />
-            <Route path="/list" component={List} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/location" component={NewLocation} />
+            <Route exact path="/list" component={List} />
+            <Route exact path="/ServerError" component={ServerError} />
+            <Route component={NotFound} />
         </Switch>
     </Router>
     , document.getElementById('root'));
