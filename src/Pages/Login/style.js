@@ -50,5 +50,6 @@ export default {
         fontWeight: 'bold',
         fontSize: '14px',
         marginTop: '2em',
-    }
+    },
+
 }

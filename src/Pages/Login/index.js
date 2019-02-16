@@ -4,9 +4,10 @@ import cp from '../../CopyDeck';
 import Input from '../../Components/Input/index';
 import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
+import Error from '../../Components/ErrorSpan/index';
 export default class Login extends Component {
     constructor(props) {
-        super(props);
+        super();
         this.apiservice = new APIService();
     }
     state = {
@@ -25,13 +26,17 @@ export default class Login extends Component {
         this.setState({
             password: e.target.value,
         });
-        console.log('222');
     }
     render() {
+        const unauthorizedError = (
+            <div style={st.errorWraper}>
+                <Error text="Faça login para continuar !" />
+            </div>);
         return (
             <div>
                 <div style={st.imgBD}>
                     <div style={st.loginWrapper}>
+                        {this.props.location.state ? (this.props.location.state.unauthorized ? unauthorizedError : null) : null}
                         <div style={st.loginContent}>
                             <div style={st.title}>
                                 <p>{cp.yourSecurity}</p>
@@ -47,6 +52,7 @@ export default class Login extends Component {
                                     <Button text="Login" />
                                 </div>
                             </div>
+
                         </div>
                         <div style={st.registerLink}>
                             <p>{cp.dontHasAccount}</p>
