@@ -24,21 +24,22 @@ export default class APIService {
         }
         fetch(`${this.url}/user/login`, request)
             .then((response) => {
-                if (response.ok) {
-                    if (response.status === 200) {
-                        return response.json();
-                    }
-                    else if (response.status === 401) {
-                        return history.push('/login');
-                    }
-
+                if (response) {
+                    return response.json();
                 } else {
                     throw Error('Infelizmente nossos serviços estão offline');
                 }
             }).then((result) => {
-                localStorage.setItem('token', result.token);
-                localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
-                history.push('/list');
+                console.log(result);
+                if (result.code === 200) {
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
+                    history.push('/list');
+                } else if (result.code === 401) {
+                    history.push('/', { unauthorized: true });
+                } else if (result.code === 404) {
+                    history.push('/register', { UserNotFound: true });
+                }
             }).catch((err) => {
                 history.push('/ServerError');
                 console.log(err);
@@ -59,20 +60,18 @@ export default class APIService {
         }
         fetch(`${this.url}/user/register`, request).then((response) => {
             if (response.ok) {
-                if (response.status === 200 | 201) {
-                    return response.json();
-                }
-                else if (response.status === 401) {
-                    return history.push('/login');
-                }
-
+                return response.json();
             } else {
                 throw Error('Infelizmente nossos serviços estão offline');
             }
         }).then((result) => {
-            localStorage.setItem('token', result.token);
-            localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
-            history.push('/list');
+            if (result.code === 200 || 201) {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('userData', JSON.stringify({ id: result.user._id, name: result.user.alias, email: result.user.email }));
+                history.push('/list');
+            } else if (result.status === 401) {
+                return history.push('/', { unauthorized: true });
+            }
         }).catch((err) => {
             console.log(err);
             history.push('/ServerError');
@@ -97,24 +96,23 @@ export default class APIService {
                 }),
             }
             fetch(`${this.url}/user/location/register`, request).then((result) => {
-                if (result.ok) {
+                if (result) {
                     if (result.status === 201) {
-                        return result.json();
+                        history.push('/list', { newLocation: "true" });
                     } else if (result.status === 401) {
-                        return history.push('/', { unauthorized: true, message: "Faça login para continuar!" })
+                        history.push('/', { unauthorized: "true" });
                     } else {
                         throw new Error('Server error:');
                     }
                 }
-            }).then((data) => {
-                history.push('/list');
+                else {
+                    history.push('/ServerError');
+                }
             }).catch((error) => {
-                console.log(error)
-                return JSON.parse(JSON.stringify(error));
-            }).then((error) => {
-                console.log(error)
-                history.push('/ServerError', { error: error })
+                console.log(error);
+                history.push('/ServerError');
             });
+            console.log('sai da promise');
             return;
         }
         if (navigator.geolocation) {
@@ -146,23 +144,69 @@ export default class APIService {
                         }),
                     }
                     fetch(`${this.url}/user/location/register`, request).then((response) => {
-                        if (response.ok) {
+                        if (response) {
                             if (response.status === 201) {
                                 return response.json();
                             } else if (response.status === 401) {
-                                return history.push('/login', { Unauthorized: true });
+                                history.push('/', { unauthorized: "true" });
                             }
                             else {
                                 throw Error('server error');
                             }
+                        } else {
+                            history.push('/ServerError');
                         }
                     }).then((result) => {
                         history.push('/list', { newLocation: true });
+                    }).catch((err) => {
+                        console.log(err);
+                        history.push('ServerError');
                     });
                 });
-            }, () => {
-
+            }, (error) => {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        history.push('/location', { PERMISSION_DENIED: true })
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        history.push('/location', { POSITION_UNAVAILABLE: true })
+                        break;
+                    case error.TIMEOUT:
+                        history.push('/location', { TIMEOUT: true });
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        history.push('/location', { UNKNOWN_ERROR: true })
+                        break;
+                    default:
+                        history.push('/list');
+                }
             })
         }
+    }
+    getLocationList() {
+        const request = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Basic ${this.apiLogin}:${this.apiPass}`,
+            },
+        }
+        fetch(`${this.url}/user/location/list`, request).then((result) => {
+            if (result) {
+                if (result.status === 200) {
+                    return result.json();
+                } else if (result.status === 401) {
+                    history.push('/', { unauthorized: true })
+                } else {
+                    history.push('/ServerError');
+                }
+            } else {
+                history.push('/ServerError');
+            }
+        }).then((data) => {
+            return data;
+        }).catch((err) => {
+            console.log(err);
+            history.push('/ServerError');
+        })
     }
 };
