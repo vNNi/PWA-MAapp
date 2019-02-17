@@ -187,7 +187,7 @@ export default class APIService {
         const request = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Basic ${this.apiLogin}:${this.apiPass}`,
+                'Authorization': `Bearer ${localStorage.getItem("token")}`,
             },
         }
         fetch(`${this.url}/user/location/list`, request).then((result) => {
