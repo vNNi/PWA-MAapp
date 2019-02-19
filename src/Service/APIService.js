@@ -184,29 +184,31 @@ export default class APIService {
         }
     }
     getLocationList() {
-        const request = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`,
-            },
-        }
-        fetch(`${this.url}/user/location/list`, request).then((result) => {
-            if (result) {
-                if (result.status === 200) {
-                    return result.json();
-                } else if (result.status === 401) {
-                    history.push('/', { unauthorized: true })
+        return new Promise((resolve, reject) => {
+            const request = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+            fetch(`${this.url}/user/location/list`, request).then((result) => {
+                if (result) {
+                    if (result.status === 200) {
+                        return result.json();
+                    } else if (result.status === 401) {
+                        history.push('/', { unauthorized: true })
+                    } else {
+                        history.push('/ServerError');
+                    }
                 } else {
                     history.push('/ServerError');
                 }
-            } else {
+            }).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                console.log(err);
                 history.push('/ServerError');
-            }
-        }).then((data) => {
-            return data;
-        }).catch((err) => {
-            console.log(err);
-            history.push('/ServerError');
+            })
         })
     }
 };
