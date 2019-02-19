@@ -1,30 +1,36 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense, lazy } from 'react'
 import cp from '../../CopyDeck';
 import st from './style.js';
 import BottomNav from '../../Components/BottomBar/index';
 import Legend from '../../Components/Legend/index';
-import ItemList from '../../Components/ItemList/index';
 import { Redirect } from 'react-router-dom';
 import Success from '../../Components/SucessSpan/index';
 import APIService from '../../Service/APIService';
+const ItemList = lazy(() => import('../../Components/ItemList/index'));
 export default class index extends Component {
     constructor(props) {
         super(props);
         this.apiservice = new APIService();
     }
     state = {
-        locationList: []
+        locationList: [],
     }
-    componentWillMount() {
-        const locationList = this.apiservice.getLocationList();
-        this.setState({ locationList: this.state.locationList.concat(locationList) });
-    }
+    componentDidMount() {
+        this.apiservice.getLocationList().then((data) => {
+            this.setState({
+                locationList: this.state.locationList.concat(data.list),
+            });
+        })
+    };
     render() {
         const sucessLocation = (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Success text="Check Feito com sucesso!" />
             </div>
         );
+        const loadingImg = <div className="album-img">
+            <img alt="loading" src="https://media.giphy.com/media/y1ZBcOGOOtlpC/200.gif" />
+        </div>
         const list = (
             <div>
                 <BottomNav />
@@ -37,10 +43,14 @@ export default class index extends Component {
                     <Legend />
                 </div>
                 <div style={st.listWrapper}>
-                    {this.state.locationList.map((location) => {
-                        return <ItemList dataLocation={location} />;
-                    })}
 
+                    {this.state.locationList.map((location, index) => {
+                        return (
+                            <Suspense key={index} fallback={loadingImg}>
+                                <ItemList dataLocation={location} />
+                            </Suspense>
+                        );
+                    })}
                 </div>
             </div>
         );

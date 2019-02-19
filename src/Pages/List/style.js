@@ -18,5 +18,8 @@ export default {
     },
     listWrapper: {
         margin: '0 3%',
-    }
+        marginBottom: '5.5em',
+        height: '400px',
+        overflow: 'scroll',
+    },
 }
