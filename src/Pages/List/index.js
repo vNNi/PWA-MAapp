@@ -17,9 +17,11 @@ export default class index extends Component {
     }
     componentDidMount() {
         this.apiservice.getLocationList().then((data) => {
+            if(data){
             this.setState({
                 locationList: this.state.locationList.concat(data.list),
             });
+            }
         })
     };
     render() {
