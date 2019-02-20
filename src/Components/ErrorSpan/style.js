@@ -5,8 +5,7 @@ export default {
         marginBottom: '1em',
         backgroundColor: Colors.reject,
         borderRadius: '4px',
-        width: '85%',
         textAlign: 'center',
-        padding: '5px 0px',
+        padding: '8px',
     }
 }
