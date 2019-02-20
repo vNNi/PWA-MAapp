@@ -7,6 +7,7 @@ import NewLocation from './Pages/Location/index';
 import List from './Pages/List/index';
 import ServerError from './Pages/ServerError/index';
 import NotFound from './Pages/404/index';
+import LocationDenied from './Pages/LocationDenied/index';
 import * as serviceWorker from './serviceWorker';
 
 import { Switch, Route, Router } from 'react-router-dom';
@@ -19,6 +20,7 @@ ReactDOM.render(
             <Route exact path="/location" component={NewLocation} />
             <Route exact path="/list" component={List} />
             <Route exact path="/ServerError" component={ServerError} />
+            <Route exact path="/LocationDenied" component={LocationDenied} />
             <Route component={NotFound} />
         </Switch>
     </Router>
