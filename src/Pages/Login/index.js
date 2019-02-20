@@ -5,6 +5,7 @@ import Input from '../../Components/Input/index';
 import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
 import Error from '../../Components/ErrorSpan/index';
+import {Link} from 'react-router-dom';
 export default class Login extends Component {
     constructor(props) {
         super();
@@ -55,7 +56,9 @@ export default class Login extends Component {
 
                         </div>
                         <div style={st.registerLink}>
+                        <Link to="/register" style={st.link}>
                             <p>{cp.dontHasAccount}</p>
+                        </Link>
                         </div>
                     </div>
                 </div>
