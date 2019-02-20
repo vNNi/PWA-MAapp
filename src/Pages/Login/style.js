@@ -51,5 +51,8 @@ export default {
         fontSize: '14px',
         marginTop: '2em',
     },
-
+    link:{
+        textDecoration: 'none',
+        color: 'white',
+    }
 }
