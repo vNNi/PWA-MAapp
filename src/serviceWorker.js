@@ -133,3 +133,25 @@ export function unregister() {
     });
   }
 }
+var cacheName = 'MAAP-v0.1';
+var appShellFiles = [
+  './Images/404.svg',
+  './Images/Component.svg',
+  './Images/GMaps.png',
+  './Images/list.svg',
+  './Images/login-bd2.png',
+  './Images/map.svg',
+  './Images/sadPhone.svg',
+  './Images/settings-gears.svg'
+];
+
+//installing service worker
+window.self.addEventListener('install',function(e){
+console.log('service worker install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache){
+      console.log('[Service Worker] Caching all: app shell and content');
+      return cache.addAll(appShellFiles);
+    })
+  );
+});
