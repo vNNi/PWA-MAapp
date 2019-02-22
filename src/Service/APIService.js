@@ -166,7 +166,7 @@ export default class APIService {
             }, (error) => {
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
-                        history.push('/location', { PERMISSION_DENIED: true })
+                        history.push('/LocationDenied', { PERMISSION_DENIED: true })
                         break;
                     case error.POSITION_UNAVAILABLE:
                         history.push('/location', { POSITION_UNAVAILABLE: true })
