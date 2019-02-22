@@ -14,6 +14,11 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
+        disableButton: true,
+        badEmail: false,
+        badPassword: false,
+        okEmail: false,
+        okPassword: false,
     }
     login = () => {
         this.apiservice.login(this.state.email, this.state.password);
@@ -28,11 +33,36 @@ export default class Login extends Component {
             password: e.target.value,
         });
     }
+    onBlurEmail = (e) => {
+        if(!e.target.value.includes('@') || e.target.value.length === 0){
+           return this.setState({
+                badEmail: true,
+            });
+        }
+        this.setState({
+            badEmail: false,
+            okEmail: true,
+        });
+    }
+    onBlurPassword = (e) => {
+        if(e.target.value.length < 4){
+            return this.setState({
+                 badPassword: true,
+             });
+         }
+         this.setState({
+             badPassword: false,
+             okPassword: true,
+         });
+    }
     render() {
+
         const unauthorizedError = (
-            <div style={st.errorWraper}>
-                <Error text="Faça login para continuar !" />
-            </div>);
+                <Error text="Faça login para continuar !" />);
+
+        const InputError = (props) => {
+           return (<span style={{color:'red',fontFamily:'Roboto, sans-serif'}}>{props.text}</span>);
+        }
         return (
             <div>
                 <div style={st.imgBD}>
@@ -42,18 +72,29 @@ export default class Login extends Component {
                             <div style={st.title}>
                                 <p>{cp.yourSecurity}</p>
                             </div>
-                            <div style={st.inputWrapper}>
-                                <Input type="email" placeholder="E-mail :" onChange={this.handleEmail} />
-                            </div>
-                            <div style={st.inputWrapper}>
-                                <Input type="text" placeholder="Senha :" onChange={this.handlePassword} />
-                            </div>
-                            <div style={st.buttonWrapper}>
-                                <div onClick={this.login}>
-                                    <Button text="Login" />
+                                <div style={st.inputWrapper}>
+                                    <Input type="email" placeholder="E-mail :" onChange={this.handleEmail} onBlur={this.onBlurEmail} />
                                 </div>
-                            </div>
-
+                                    {
+                                        this.state.badEmail?
+                                    (<div>
+                                        <InputError text="Verifique seu e-mail"/>
+                                    </div>):null
+                                    }
+                                <div style={st.inputWrapper}>
+                                    <Input type="text" placeholder="Senha :" onChange={this.handlePassword} onBlur={this.onBlurPassword}/>
+                                </div>
+                                {
+                                        this.state.badPassword?
+                                    (<div>
+                                        <InputError text="Senha precisa ter no mínimo 4 caracters"/>
+                                    </div>):null
+                                    }
+                                <div style={st.buttonWrapper}>
+                                    <div onClick={this.login}>
+                                        <Button text="Login" onClick={this.login} disable={!(this.state.okEmail && this.state.okPassword)}/>
+                                    </div>
+                                </div>
                         </div>
                         <div style={st.registerLink}>
                         <Link to="/register" style={st.link}>
