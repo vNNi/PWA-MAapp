@@ -4,9 +4,24 @@
   "description": "Aplicativo feito visando a segurança de todas as alvinegras que desejam ir e voltar do jogo, em segurança",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "MAIcon-1x.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "MAIcon-2x.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "MAIcon-3x.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "MAIcon-4x.png",
+      "sizes": "384x384",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
