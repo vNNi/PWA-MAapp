@@ -97,9 +97,9 @@ export default class Login extends Component {
                                 </div>
                         </div>
                         <div style={st.registerLink}>
-                        <Link to="/register" style={st.link}>
-                            <p>{cp.dontHasAccount}</p>
-                        </Link>
+                            <Link to="/register" style={st.link}>
+                                <p>{cp.dontHasAccount}</p>
+                            </Link>
                         </div>
                     </div>
                 </div>

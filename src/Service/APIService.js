@@ -4,7 +4,7 @@ export default class APIService {
     constructor() {
         const data = new CryptHelper().encryptApiLogin('teste', 123);
         console.log(data);
-        this.url = "http://localhost:4000";
+        this.url = "https://maapp-api.herokuapp.com";
         this.apiLogin = data[0];
         this.apiPass = data[1];
         this.GApi = 'https://maps.googleapis.com/maps/api/geocode/';

@@ -11,6 +11,7 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
+        flexDirection: 'column',
     },
     registerContent: {
         width: '80%',
@@ -28,5 +29,17 @@ export default {
     },
     buttonWrapper: {
         margin: '1.5em 10%',
+    },
+    registerLink: {
+        textAlign: 'center',
+        color: 'white',
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        fontSize: '14px',
+        marginTop: '2em',
+    },
+    link:{
+        textDecoration: 'none',
+        color: 'white',
     }
 }

@@ -3,6 +3,9 @@ import st from './style.js';
 import Input from '../../Components/Input/index';
 import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
+import {Link} from 'react-router-dom';
+import cp from '../../CopyDeck.js';
+
 export default function index() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -81,10 +84,15 @@ export default function index() {
                             }
                         </div>
                         <div style={st.buttonWrapper}>
-                            <div onClick={register}>
-                                <Button text="Cadastrar" disable={!(okAlias && okMail && okPassword)}/>
+                            <div>
+                                <Button text="Cadastrar" disable={!(okAlias && okMail && okPassword)} onClick={register}/>
                             </div>
                         </div>
+                    </div>
+                    <div style={st.registerLink}>
+                        <Link to="/" style={st.link}>
+                            <p>{cp.hasAccount}</p>
+                        </Link>
                     </div>
                 </div>
             </div>

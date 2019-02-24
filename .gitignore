@@ -1,5 +1,7 @@
 node_modules
 package-lock.json
 yarn.lock
-
+.firebase/
+.firebaserc
+build/
 \.vscode/settings\.json
