@@ -16,6 +16,7 @@ export default function index() {
     const [okMail, setOkMail] = useState(false);
     const [okPassword, setOkPassword] = useState(false);
     const [okAlias, setOkAlias] = useState(false);
+    const [onLoading, setOnLoading] = useState(false);
 
     function handleEmail(e) {
         setEmail(e.target.value);
@@ -27,6 +28,7 @@ export default function index() {
         setAlias(e.target.value);
     }
     function register() {
+        setOnLoading(true);
         const apiservice = new APIService();
         return apiservice.register(email, alias, password);
     }
@@ -85,7 +87,7 @@ export default function index() {
                         </div>
                         <div style={st.buttonWrapper}>
                             <div>
-                                <Button text="Cadastrar" disable={!(okAlias && okMail && okPassword)} onClick={register}/>
+                                <Button text="Cadastrar" disable={!(okAlias && okMail && okPassword)} onLoading={onLoading} onClick={register}/>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
 import Error from '../../Components/ErrorSpan/index';
 import {Link} from 'react-router-dom';
+
 export default class Login extends Component {
     constructor(props) {
         super();
@@ -19,8 +20,12 @@ export default class Login extends Component {
         badPassword: false,
         okEmail: false,
         okPassword: false,
+        onLoading: false,
     }
     login = () => {
+        this.setState({
+            onLoading: true,
+        });
         this.apiservice.login(this.state.email, this.state.password);
     }
     handleEmail = (e) => {
@@ -92,7 +97,7 @@ export default class Login extends Component {
                                     }
                                 <div style={st.buttonWrapper}>
                                     <div onClick={this.login}>
-                                        <Button text="Login" onClick={this.login} disable={!(this.state.okEmail && this.state.okPassword)}/>
+                                        <Button text="login" onClick={this.login} onLoading={this.state.onLoading}disable={!(this.state.okEmail && this.state.okPassword)}/>
                                     </div>
                                 </div>
                         </div>
