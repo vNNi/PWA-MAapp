@@ -30,7 +30,7 @@ export default class index extends Component {
                 <Success text="Check Feito com sucesso!" />
             </div>
         );
-        const loadingImg = <div className="album-img">
+        const loadingImg = <div style={{display: 'flex',justifyContent:'center'}}>
             <img alt="loading" src="https://media.giphy.com/media/y1ZBcOGOOtlpC/200.gif" />
         </div>
         const list = (
