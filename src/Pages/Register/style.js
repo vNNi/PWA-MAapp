@@ -15,7 +15,6 @@ export default {
     },
     registerContent: {
         width: '80%',
-        height: '60%',
         background: 'rgba(0,0,0,0.2)',
         borderRadius: ' 10px',
         position: 'relative',

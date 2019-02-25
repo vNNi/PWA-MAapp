@@ -77,7 +77,7 @@ export default class Login extends Component {
                                 </div>
                                     {
                                         this.state.badEmail?
-                                    (<div>
+                                    (<div style={{textAlign: 'center',marginTop: '0.5em'}}>
                                         <InputError text="Verifique seu e-mail"/>
                                     </div>):null
                                     }
@@ -86,7 +86,7 @@ export default class Login extends Component {
                                 </div>
                                 {
                                         this.state.badPassword?
-                                    (<div>
+                                    (<div style={{textAlign:'center',marginTop: '0.5em'}}>
                                         <InputError text="Senha precisa ter no mínimo 4 caracters"/>
                                     </div>):null
                                     }

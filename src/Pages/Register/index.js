@@ -62,7 +62,7 @@ export default function index() {
                         <div style={st.inputWrapper}>
                             <Input type="email" placeholder="E-mail: " onChange={handleEmail} onBlur={onBlurEmail} />
                         </div>
-                        <div style={{textAlign:'center'}}>
+                        <div style={{textAlign:'center',marginTop: '0.5em'}}>
                             {
                                 badEmail? <InputError text="Verifique o E-mail"/>:null
                             }
@@ -70,7 +70,7 @@ export default function index() {
                         <div style={st.inputWrapper}>
                             <Input type="text" placeholder="Apelido: " onChange={handleAlias} onBlur={onBlurAlias}/>
                         </div>
-                        <div style={{textAlign:'center'}}>
+                        <div style={{textAlign:'center',marginTop: '0.5em'}}>
                             {
                                 badAlias? <InputError text="Verifique o apelido"/>:null
                             }
@@ -78,7 +78,7 @@ export default function index() {
                         <div style={st.inputWrapper}>
                             <Input type="password" placeholder="Senha: " onChange={handlePassword} onBlur={onBlurPassword} />
                         </div>
-                        <div style={{textAlign:'center'}}>
+                        <div style={{textAlign:'center',marginTop: '0.5em'}}>
                             {
                                 badPassword? <InputError text="Verifique a senha"/>:null
                             }
