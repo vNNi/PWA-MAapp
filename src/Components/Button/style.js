@@ -8,5 +8,7 @@ export default {
         padding: '10px 30px',
         borderRadius: '4px',
         color: props.color || 'white',
+        display: 'flex',
+        justifyContent: 'space-between',
     }),
 }
