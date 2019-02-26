@@ -20,7 +20,7 @@ export default function index() {
         </div>
         <div style={st.navItem}>
           <Link to="/settings">
-            <img src={gearsImg} alt="fazer check-in ou check-out" />
+            <img src={gearsImg} alt="ver configurações/contatos" />
           </Link>
         </div>
       </div>
