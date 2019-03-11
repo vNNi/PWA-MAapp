@@ -5,6 +5,7 @@ import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
 import {Link} from 'react-router-dom';
 import cp from '../../CopyDeck.js';
+import Colors from '../../Colors.js';
 
 export default function index() {
     const [email, setEmail] = useState("");
@@ -54,7 +55,7 @@ export default function index() {
         setOkPassword(true);
     }
     const InputError = (props) => {
-        return (<span style={{color:'red',fontFamily:'Roboto, sans-serif'}}>{props.text}</span>);
+        return (<span style={{color:Colors.reject,fontFamily:'Roboto, sans-serif'}}>{props.text}</span>);
      }
     return (
         <div>

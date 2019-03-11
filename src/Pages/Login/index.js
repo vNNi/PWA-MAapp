@@ -6,6 +6,7 @@ import Button from '../../Components/Button/index';
 import APIService from '../../Service/APIService';
 import Error from '../../Components/ErrorSpan/index';
 import {Link} from 'react-router-dom';
+import Colors from '../../Colors.js';
 
 export default class Login extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ export default class Login extends Component {
                 <Error text="Faça login para continuar !" />);
 
         const InputError = (props) => {
-           return (<span style={{color:'red',fontFamily:'Roboto, sans-serif'}}>{props.text}</span>);
+           return (<span style={{color:Colors.reject,fontFamily:'Roboto, sans-serif'}}>{props.text}</span>);
         }
         return (
             <div>
@@ -87,7 +88,7 @@ export default class Login extends Component {
                                     </div>):null
                                     }
                                 <div style={st.inputWrapper}>
-                                    <Input type="text" placeholder="Senha :" onChange={this.handlePassword} onBlur={this.onBlurPassword}/>
+                                    <Input type="password" placeholder="Senha :" onChange={this.handlePassword} onBlur={this.onBlurPassword}/>
                                 </div>
                                 {
                                         this.state.badPassword?
