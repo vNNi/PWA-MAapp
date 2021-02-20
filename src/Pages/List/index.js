@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy } from 'react'
+import React, { Component, Suspense, lazy, useState, useEffect } from 'react'
 import cp from '../../CopyDeck';
 import st from './style.js';
 import BottomNav from '../../Components/BottomBar/index';
@@ -7,25 +7,23 @@ import { Redirect } from 'react-router-dom';
 import Success from '../../Components/SucessSpan/index';
 import APIService from '../../Service/APIService';
 const ItemList = lazy(() => import('../../Components/ItemList/index'));
-export default class index extends Component {
-    constructor(props) {
-        super(props);
-        this.apiservice = new APIService();
-    }
-    state = {
-        locationList: [],
-    }
-    componentDidMount() {
-        this.apiservice.getLocationList().then((data) => {
-            if(data){
-            this.setState({
-                locationList: this.state.locationList.concat(data.list),
-            });
-            }
-        })
-    };
-    render() {
-        const sucessLocation = (
+
+const Page = (props) => {
+   const ApiService = new APIService();
+
+    const [locationList, setLocationList] = useState([]);
+
+        useEffect(() => {
+            async function getLocations() {
+                const data = await ApiService.getLocationList();
+                    if(data){
+                        setLocationList(locationList.concat(data.list));
+                    }
+            };
+            getLocations();
+        }, []); 
+
+        const successLocation = (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Success text="Check Feito com sucesso!" />
             </div>
@@ -39,7 +37,7 @@ export default class index extends Component {
                 <div style={st.headerContainer}>
                     <h1 style={st.title}>{cp.checkList}</h1>
                     <p style={st.subtitle}>{cp.listSubtitle}</p>
-                    {this.props.location.state ? (this.props.location.state.newLocation ? sucessLocation : null) : null}
+                    {this.props.location.state ? (this.props.location.state.newLocation ? successLocation : null) : null}
                 </div>
                 <div style={st.legendWrapper}>
                     <Legend />
@@ -57,6 +55,7 @@ export default class index extends Component {
             </div>
         );
         const logged = localStorage.getItem('token');
+
         return (
             <div>
                 {
@@ -64,5 +63,6 @@ export default class index extends Component {
                 }
             </div>
         )
-    }
 }
+
+export default Page;

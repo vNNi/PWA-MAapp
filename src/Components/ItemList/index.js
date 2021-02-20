@@ -1,7 +1,7 @@
 import React from 'react'
 import st from './style.js'
+
 export default function index(props) {
-    console.log(props);
     function dateToString(date) {
         return date.split('T')[0].replace(/-/g, '/');
     }
